@@ -1,0 +1,5 @@
+Django==4.0.2
+django_import_export==2.8.0
+django_phone_field==1.8.1
+import_export==0.2.67.dev6
+stripe==2.66.0
