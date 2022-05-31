@@ -1,0 +1,213 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block page_title %}Contacts List{% endblock page_title %}
+{% block meta_description %}{% endblock meta_description %}
+{% block meta_keywords %}{% endblock meta_keywords %}
+{% block page_content %}
+<div class="page-content">
+	{% url 'contacts:contacts-settings' as settings %}
+	{% include 'breadcrumb.html' with app_name="Contacts" app_page="Contacts List" settings=settings %}
+	<div class="row">
+	  <div class="col-12">
+		<div class="card">
+		  <div class="card-body">
+			<div class="row align-items-center">
+			  <div class="col-lg-9">
+				<form action="{% url 'contacts:search-contacts' %}" id="search-contacts" method="POST">{% csrf_token %} <div class="row row-cols-auto g-2">
+					<div class="col col-6">
+					  <div class="position-relative">
+						<input name="search-contacts-input" type="text" class="form-control ps-5" placeholder="Search Contacts...">
+						<span class="position-absolute top-50 product-show translate-middle-y">
+						  <i class="bx bx-search"></i>
+						</span>
+					  </div>
+					</div>
+					<div class="col">
+					  <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+						<button type="button" class="btn btn-white">Sort By</button>
+						<div class="btn-group" role="group">
+						  <button id="btnGroupDrop1" type="button" class="btn btn-white dropdown-toggle dropdown-toggle-nocaret px-1" data-bs-toggle="dropdown" aria-expanded="false">
+							<i class="bx bx-chevron-down"></i>
+						  </button>
+						  <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+							<li>
+							  <a class="dropdown-item" href="#">Dropdown link</a>
+							</li>
+							<li>
+							  <a class="dropdown-item" href="#">Dropdown link</a>
+							</li>
+						  </ul>
+						</div>
+					  </div>
+					</div>
+					<div class="col">
+					  <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+						<button type="button" class="btn btn-white">Categories</button>
+						<div class="btn-group" role="group">
+						  <button id="btnGroupDrop1" type="button" class="btn btn-white dropdown-toggle dropdown-toggle-nocaret px-1" data-bs-toggle="dropdown" aria-expanded="false">
+							<i class="bx bxs-category"></i>
+						  </button>
+						  <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+							<li>
+							  <a class="dropdown-item" href="#">Dropdown link</a>
+							</li>
+							<li>
+							  <a class="dropdown-item" href="#">Dropdown link</a>
+							</li>
+						  </ul>
+						</div>
+					  </div>
+					</div>
+					<div class="col">
+					  <div class="btn-group" role="group">
+						<button type="button" class="btn btn-white">Filters</button>
+						<div class="btn-group" role="group">
+						  <button id="btnGroupDrop1" type="button" class="btn btn-white dropdown-toggle dropdown-toggle-nocaret px-1" data-bs-toggle="dropdown" aria-expanded="false">
+							<i class="bx bx-slider"></i>
+						  </button>
+						  <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="btnGroupDrop1">
+							<li>
+							  <a class="dropdown-item" href="#">Dropdown link</a>
+							</li>
+							<li>
+							  <a class="dropdown-item" href="#">Dropdown link</a>
+							</li>
+						  </ul>
+						</div>
+					  </div>
+					</div>
+				  </div>
+				</form>
+			  </div>
+			  <div class="col-lg-3">
+				<div class="col float-end">
+				  <div class="btn-group">
+					<div class="col">
+					  <div class="btn-group">
+						<!-- Button trigger modal -->
+						<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addContact">
+						  <i class="lni lni-circle-plus"></i> Contact </button>
+					  </div>
+					  <!-- Modal -->
+					  <div class="modal fade" id="addContact" tabindex="-1" aria-labelledby="addContactLabel" aria-hidden="true" style="display: none;">
+						<div class="modal-dialog">
+						  <div class="modal-content">
+							<div class="modal-header">
+							  <div></div>
+							  <div class="row">
+								<div class="col-2">
+								  <i class="bx bxs-user font-22 text-primary"></i>
+								</div>
+								<div class="col-10">
+								  <h5 class="mb-2 mt-2 text-primary" id="addContactLabel">Add Contact</h5>
+								</div>
+							  </div>
+							  <div>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							  </div>
+							</div>
+							<div class="modal-body">
+								<form action="{% url 'contacts:add-contact' %}" method="POST">
+									<div class="card-body">
+									  <div class="border p-4 rounded">
+										  {% csrf_token %}
+										  {{ contact_form }}
+									</div>
+									<div class="modal-footer">
+									  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+									  <input type="submit" class="btn btn-primary" value="Add Contact">
+								</form>
+							  </div>
+							</div>
+						  </div>
+						</div>
+					  </div>
+					</div>
+				  </div>
+				</div>
+			  </div>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	<div class="product-grid row row-cols-1 row-cols-md-3 row-cols-xl-5">
+	  {% for contact in contact_page %}
+		<div class="col">
+		<div class="card radius-15">
+		  <div class="card-body text-center">
+			<div class="p-4 border radius-15">
+			  <h5 class="mb-0 mt-5">{{ contact.first_name }} {{ contact.last_name }}</h5>
+			  <p class="mb-3">{{ contact.contact_type | capfirst }}</p>
+			  <div class="list-inline mt-3 mb-3">
+				<li class="list-inline-item">
+				  <div class="font-22 text-primary">
+					<abbr title="Profile">
+					  <a href="{% url 'contacts:get-contact' contact.id %}">
+						<i class="fadeIn animated bx bx-user"></i>
+					  </a>
+					</abbr>
+				  </div>
+				</li>
+				<li class="list-inline-item">
+				  <div class="font-22 text-primary">
+					<abbr title="Appointments">
+					  <a href="{% url 'contacts:get-contact' contact.id %}">
+						<i class="fadeIn animated bx bx-calendar"></i>
+					  </a>
+					</abbr>
+				  </div>
+				</li>
+				<li class="list-inline-item">
+				  <div class="font-22 text-primary">
+					<abbr title="Tickets">
+					  <a href="{% url 'contacts:get-contact' contact.id %}">
+						<i class="fadeIn animated bx bx-info-circle"></i>
+					  </a>
+					</abbr>
+				  </div>
+				</li>
+				<li class="list-inline-item">
+				  <div class="font-22 text-primary">
+					<abbr title="Checkout">
+					  <a href="{% url 'contacts:get-contact' contact.id %}">
+						<i class="fadeIn animated bx bx-cart"></i>
+					  </a>
+					</abbr>
+				  </div>
+				</li>
+			  </div>
+			  <div class="d-grid">
+				<a href=" {% url 'contacts:get-contact' contact.id %} " class="btn btn-outline-primary radius-15">Open</a>
+			  </div>
+			</div>
+		  </div>
+		</div>
+	  </div>{% endfor %}
+	</div>
+	{% if contact_page %}
+	<ul class="pagination justify-content-center">
+		{% if contact_page.has_previous %}
+		<li class="page-item"><a class="page-link" href="?page={{ contact_page.previous_page_number }}" tabindex="-1" aria-disabled="true">Previous</a>
+		</li>
+		<li class="page-item"><a class="page-link" href="?page={{ contact_page.previous_page_number }}">{{ contact_page.previous_page_number }}</a>
+		</li>
+		{% endif %}
+		<li class="page-item active" aria-current="page"><a class="page-link" href="?page={{ contact_page.number }}">{{contact_page.number}}<span class="visually-hidden">(current)</span></a>
+		</li>
+		{% if contact_page.has_next %}
+		<li class="page-item"><a class="page-link" href="?page={{ contact_page.next_page_number }}">{{ contact_page.next_page_number }}</a>
+		</li>
+		<li class="page-item"><a class="page-link" href="?page={{ contact_page.next_page_number }}">Next</a>
+		</li>
+		{% endif %}
+	</ul>
+	{% endif %}
+	<!--end row-->
+</div>
+{% endblock page_content %}
+{% comment %} {{ contact_page }}<br/>
+{{ contact_page.has_previous }}<br/>
+{{ contact_page.has_next }}<br/>
+{{ contact_page.number }}<br/>
+{{ contact_page.paginator.num_pages }}<br/> {% endcomment %}

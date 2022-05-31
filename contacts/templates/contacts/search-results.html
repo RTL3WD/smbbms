@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block page_title %}Contact Page | {{ first_name }} {{ last_name }} {% endblock page_title %}
+{% block meta_description %}{% endblock meta_description %}
+{% block meta_keywords %}{% endblock meta_keywords %}
+{% block page_content %} 
+<!--wrapper-->
+<div class="wrapper">
+	<!--start page wrapper -->
+	<div class="page-wrapper">
+	  <div class="page-content">
+		<!--breadcrumb-->
+		<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+		  <div class="breadcrumb-title pe-3">Search</div>
+		  <div class="ps-3">
+			<nav aria-label="breadcrumb">
+			  <ol class="breadcrumb mb-0 p-0">
+				<li class="breadcrumb-item">
+				  <a href="javascript:;">
+					<i class="bx bx-home-alt"></i>
+				  </a>
+				</li>
+				<li class="breadcrumb-item active" aria-current="page">Results</li>
+			  </ol>
+			</nav>
+		  </div>
+		  <div class="ms-auto">
+			<div class="btn-group">
+			  <button type="button" class="btn btn-primary">Settings</button>
+			  <button type="button" class="btn btn-primary split-bg-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">
+				<span class="visually-hidden">Toggle Dropdown</span>
+			  </button>
+			  <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">
+				<a class="dropdown-item" href="javascript:;">Action</a>
+				<a class="dropdown-item" href="javascript:;">Another action</a>
+				<a class="dropdown-item" href="javascript:;">Something else here</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="javascript:;">Separated link</a>
+			  </div>
+			</div>
+		  </div>
+		</div>
+		<!--end breadcrumb-->
+		<div class="row">
+		  <div class="col-12 col-lg-9 mx-auto">
+			<div class="card">
+				<div class="card-body">
+				  {% if searched %}
+				  <h1>You Searched: {{ searched | title }}</h1>
+				  {% else %}
+				  <h1>Please enter something into the search bar</h1>
+				  {% endif %}
+				</div>
+			</div>
+			{% if contacts %}
+			<h6 class="mb-0 text-uppercase">Contacts</h6>
+			<hr />
+			<div class="card">
+			  <div class="card-body"> {% for contact in contacts %} <p>
+				  <a href="{% url 'contacts:get-contact' contact.id %}">{{ contact }}</a>
+				</p>
+				<hr> {% endfor %}
+			  </div>
+			</div> {% endif %} {% if contacts_with_phone_number %} <h6 class="mb-0 text-uppercase">Contacts with Phone Number</h6>
+			<hr />
+			<div class="card">
+			  <div class="card-body"> {% for contact in contacts_with_phone_number %} <p>
+				  <a href="{% url 'contacts:get-contact' contact.id %}">{{ contact }}</a>
+				</p>
+				<hr> {% endfor %}
+			  </div>
+			</div> {% endif %}
+			{% if phone_numbers %}
+			<h6 class="mb-0 text-uppercase">Phone Numbers</h6>
+			<hr />
+			<div class="card">
+			  <div class="card-body"> {% for phone_number in phone_numbers %} <p>
+				  <a href="{% url 'contacts:get-contact' phone_number.id %}">{{ phone_number }}</a>
+				</p>
+				<hr> {% endfor %}
+			  </div>
+			</div> {% endif %}
+			{% if products %}
+			<h6 class="mb-0 text-uppercase">Products</h6>
+			<hr />
+			<div class="card">
+			  <div class="card-body">
+				  {% for product in products %}
+				  <p>
+				  <a href="{% url 'products:get-product' product.id %}">{{ product }}</a>
+				</p>
+				<hr> {% endfor %}
+			  </div>
+			</div> {% endif %}
+			{% if sku_search %}
+			<h6 class="mb-0 text-uppercase">SKU Search</h6>
+			<hr />
+			<div class="card">
+			  <div class="card-body">
+				  {% for product in sku_search %}
+				  <p>
+				  <a href="{% url 'products:get-product' product.id %}">{{ product }}</a>
+				</p>
+				<hr> {% endfor %}
+			  </div>
+			</div> {% endif %}
+		  </div>
+		</div>
+		<!--end row-->
+	  </div>
+	</div>
+	<!--end page wrapper -->
+	<!--start overlay-->
+	<div class="overlay toggle-icon"></div>
+	<!--end overlay-->
+	<!--Start Back To Top Button-->
+	<a href="javaScript:;" class="back-to-top">
+	  <i class='bx bxs-up-arrow-alt'></i>
+	</a>
+	<!--End Back To Top Button-->
+	<footer class="page-footer">
+	  <p class="mb-0">Copyright © 2021. All right reserved.</p>
+	</footer>
+  </div>
+  <!--end wrapper-->
+{% endblock %}

@@ -1,0 +1,32 @@
+{{% extends 'base.html' %}
+{% load static %}
+{% block page_title %}Products Page{% endblock page_title %}
+{% block meta_description %}Products Page{% endblock meta_description %}
+{% block meta_keywords %}{% endblock meta_keywords %}
+{% block page_content %}
+{% spaceless %}
+{% if fields %}
+{% for field in fields %}
+<div class="card">
+    <div class="card-body">
+        <div class="input-group mb-3"> <span class="input-group-text" id="inputGroup-sizing-default">{{ field.name }}}}</span>
+            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+
+  <fieldset class="module">
+    <h2 class="collapse-handler">Custom Fields</h2>
+
+    {% for field in fields %}       
+        
+
+      </div>
+    {% endfor %}
+  </fieldset>
+
+{% endif %}
+{% endspaceless %}
+{% endblock %}

@@ -1,0 +1,206 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block meta_description %}Point of Sale Page{% endblock meta_description %}
+
+
+{% block meta_keywords %}Point of Sale{% endblock meta_keywords %}
+
+
+{% block page_title %}PoS Index Page{% endblock page_title %}
+
+{% block css %}{% static 'css/transactions-pos.css' %}{% endblock css %} 
+
+{% block body_content %}
+<div class="container">
+    <form action="#" name="add_credit_form">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="payment_module">
+            <div class="modules__title">
+              <h4>Add Payment Methods</h4>
+            </div>
+            <div class="payment_tabs p-bottom-sm">
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li>
+                  <a class="active show" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Credit Card</a>
+                </li>
+                <li>
+                  <a class="" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Paypal</a>
+                </li>
+              </ul>
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade active show" id="home" role="tabpanel" aria-labelledby="home-tab">
+                  <div class="modules__content">
+                    <ul id="card-logos" class="cards-logo">
+                      <li>
+                        <img src="{% static 'img/master-card.jpg' %}" alt="master-card-logo">
+                      </li>
+                      <li>
+                        <img src="{% static 'img/visa.jpg' %}" alt="visa-card-logo">
+                      </li>
+                      <li>
+                        <img src="{% static 'img/american-express-logo.jpg' %}" alt="american-express-card-logo">
+                      </li>
+                      <li>
+                        <img src="{% static 'img/discover.jpg' %}" alt="discover-card-logo">
+                      </li>
+                    </ul>
+                    <div class="payment_info modules__content">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group select-wrap">
+                            <select id="card-selection" class="text_field">
+                              <option value="">Select Credit Card</option>
+                              <option value="visa">Visa</option>
+                              <option value="master-card">Master Card</option>
+                              <option value="american-express">American Express</option>
+                              <option value="discover">Discover</option>
+                            </select>
+                            <span class="lnr icon-arrow-down"></span>
+                          </div>
+                        </div>
+                        <!-- ends: .col-md-6 -->
+                        <div class="col-md-6">
+                          <div class="form-group select-wrap">
+                            <select class="text_field">
+                              <option value="">Currency - US Dollar</option>
+                              <option value="">GBP</option>
+                              <option value="">AUD</option>
+                            </select>
+                            <span class="lnr icon-arrow-down"></span>
+                          </div>
+                        </div>
+                        <!-- ends: .col-md-6 -->
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="card_name">Card Holder Number</label>
+                            <input id="card_name" type="text" class="text_field" placeholder="Card Holder Name">
+                          </div>
+                          <!-- ends: .col-md-6 -->
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="card_number">Card Number</label>
+                            <input id="card_number" type="text" class="text_field" placeholder="Enter your card number here...">
+                          </div>
+                        </div>
+                        <!-- ends: .col-md-6 -->
+                        <div class="col-md-6">
+                          <!-- lebel for date selection -->
+                          <label for="name">Expire Date</label>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <div class="select-wrap">
+                                  <select name="months" id="name">
+                                    <option value="">Month</option>
+                                    <option value="jan">jan</option>
+                                    <option value="feb">Feb</option>
+                                    <option value="mar">Mar</option>
+                                    <option value="apr">Apr</option>
+                                    <option value="may">May</option>
+                                    <option value="jun">Jun</option>
+                                    <option value="jul">Jul</option>
+                                    <option value="aug">Aug</option>
+                                    <option value="sep">Sep</option>
+                                    <option value="oct">Oct</option>
+                                    <option value="nov">Nov</option>
+                                    <option value="dec">Dec</option>
+                                  </select>
+                                  <span class="lnr icon-arrow-down"></span>
+                                </div>
+                                <!-- ends: .select-wrap -->
+                              </div>
+                              <!-- ends: .form-group -->
+                            </div>
+                            <!-- ends: .col-md-6-->
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <div class="select-wrap">
+                                  <select name="years" id="years">
+                                    <option value="">Year</option>
+                                    <option value="28">2028</option>
+                                    <option value="27">2027</option>
+                                    <option value="26">2026</option>
+                                    <option value="25">2025</option>
+                                    <option value="24">2024</option>
+                                    <option value="23">2023</option>
+                                    <option value="22">2022</option>
+                                    <option value="21">2021</option>
+                                    <option value="20">2020</option>
+                                    <option value="19">2019</option>
+                                    <option value="18">2018</option>
+                                    <option value="17">2017</option>
+                                  </select>
+                                  <span class="lnr icon-arrow-down"></span>
+                                </div>
+                                <!-- ends: .select-wrap -->
+                              </div>
+                              <!-- ends: .form-group -->
+                            </div>
+                            <!-- ends: .col-md-6-->
+                          </div>
+                          <!-- ends: .row -->
+                        </div>
+                        <!-- ends: .col-md-6 -->
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="cv_code">CVV Code</label>
+                            <input id="cv_code" type="text" class="text_field" placeholder="Enter code here...">
+                          </div>
+                        </div>
+                        <!-- ends: .col-md-6 -->
+                        <div class="col-md-12">
+                          <div class="custom-radio m-bottom-25">
+                            <input type="checkbox" id="opt8" class="" name="filter_opt">
+                            <label for="opt8">
+                              <span class="circle"></span>Save card for next time </label>
+                          </div>
+                          <button type="submit" class="btn btn--md btn-primary">Add Credit Now</button>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- ends: .payment_info -->
+                  </div>
+                  <!-- ends: .modules__content -->
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                  <div class="modules__content">
+                    <ul class="cards-logo">
+                      <li>
+                        <img src="{% static 'img/paypal.jpg' %}" alt="paypal-logo">
+                      </li>
+                    </ul>
+                    <div class="payment_info modules__content">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group m-bottom-30">
+                            <label for="paypal_email">Paypal Email</label>
+                            <input id="paypal_email" type="email" class="text_field" placeholder="Enter Email">
+                          </div>
+                          <!-- ends: .col-md-6 -->
+                        </div>
+                        <div class="col-md-12">
+                          <button type="submit" class="btn btn--md btn-primary">Add Paypal</button>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- ends: .payment_info -->
+                  </div>
+                  <!-- ends: .modules__content -->
+                </div>
+              </div>
+            </div>
+            <!-- ends: .payment_tabs -->
+          </div>
+          <!-- ends: .payment_module -->
+        </div>
+        <!-- ends: .col-md-12 -->
+      </div>
+      <!-- ends: .row -->
+    </form>
+    <!-- ends: .add_credit_form -->
+  </div>
+{% endblock body_content %}
+{% block js %}{% endblock js %}
